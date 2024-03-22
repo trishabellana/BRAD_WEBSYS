@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
-import {LibraryReducers} from './LibraryReducers';
+import {LibraryReducers,BookReducers} from './LibraryReducers';
 
 const reducers = combineReducers({
     allStudents:LibraryReducers,
-    allBooks:LibraryReducers,
+    allBooks:BookReducers,
 
 })
 

@@ -1,6 +1,5 @@
 import{ActionTypes} from "../constants/Action-types";
 
-import React from 'react'
 
 const initialState ={
     students: [
@@ -12,36 +11,51 @@ const initialState ={
 
         {
             id:2,
-            lastname: 'Genite',
-            firstname:'Ealton'
+            lastname: 'Del Rosario',
+            firstname:'Raymark'
         }
     ],
+
+}
+const initialStates ={
 
     books: [
         {
             id:1,
             bookname: 'P1',
-            desciprtion:'Programming 1'
+            desciprtion:'Programming 1',
+            status: 'Available'
         },
 
         {
             id:2,
             bookname: 'P2',
-            desciprtion:'Programming 2'
+            desciprtion:'Programming 2',
+            status: 'Not Available'
         }
     ]
 }
 
+
+
 export const LibraryReducers = (state=initialState, {type,payload}) => {
  switch (type) {
     case ActionTypes.SET_STUDENTS:
-        return (state, payload);
-
-    case ActionTypes.SET_BOOKS:
-        return (state, payload);
+        return {...state,students:payload};
 
     default:
         return state;
   }
 }
 
+export const BookReducers = (state=initialStates, {type,payload}) => {
+    switch (type) {
+       case ActionTypes.SET_BOOKS:
+           return {...state,books:payload};
+   
+       default:
+           return state;
+     }
+   }
+   
+   

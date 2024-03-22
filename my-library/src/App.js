@@ -14,7 +14,7 @@ function App() {
       </ul>
     </div>
     <StudentPage/>
-    <BookPage/>
+    {/* <BookPage/> */}
   
    </>
   );

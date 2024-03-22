@@ -10,6 +10,10 @@
 .student-table th{
     width:20%;
 }
+.student-table td{
+    width:20%;
+    text-align:center;
+}
 .student-form {
     display: flex;
     flex-direction: row;
