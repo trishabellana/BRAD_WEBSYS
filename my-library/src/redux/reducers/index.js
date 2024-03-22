@@ -3,6 +3,7 @@ import {LibraryReducers} from './LibraryReducers';
 
 const reducers = combineReducers({
     allStudents:LibraryReducers,
+    allBooks:LibraryReducers,
 
 })
 

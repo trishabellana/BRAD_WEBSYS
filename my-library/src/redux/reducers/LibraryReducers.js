@@ -15,6 +15,20 @@ const initialState ={
             lastname: 'Genite',
             firstname:'Ealton'
         }
+    ],
+
+    books: [
+        {
+            id:1,
+            bookname: 'P1',
+            desciprtion:'Programming 1'
+        },
+
+        {
+            id:2,
+            bookname: 'P2',
+            desciprtion:'Programming 2'
+        }
     ]
 }
 
@@ -23,7 +37,11 @@ export const LibraryReducers = (state=initialState, {type,payload}) => {
     case ActionTypes.SET_STUDENTS:
         return (state, payload);
 
+    case ActionTypes.SET_BOOKS:
+        return (state, payload);
+
     default:
         return state;
   }
 }
+

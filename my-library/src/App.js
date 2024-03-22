@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import StudentPage from './Component/Student/Student Page/StudentPage';
+import BookPage from './Component/Book/Book Page/BookPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       </ul>
     </div>
     <StudentPage/>
+    <BookPage/>
   
    </>
   );

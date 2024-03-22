@@ -6,3 +6,10 @@ export const setStudent = (students) => {
         payload: students,
     }
 }
+
+export const setBook = (books) => {
+    return{
+        type: ActionTypes.SET_BOOKS,
+        payload: books,
+    }
+}
