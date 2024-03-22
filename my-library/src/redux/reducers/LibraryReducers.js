@@ -23,14 +23,14 @@ const initialStates ={
         {
             id:1,
             bookname: 'P1',
-            desciprtion:'Programming 1',
+            description:'Programming 1',
             status: 'Available'
         },
 
         {
             id:2,
             bookname: 'P2',
-            desciprtion:'Programming 2',
+            description:'Programming 2',
             status: 'Not Available'
         }
     ]

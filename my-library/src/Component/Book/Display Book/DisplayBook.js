@@ -15,7 +15,29 @@ export default function DisplayBook() {
           <th>Status</th>
           <th>Action</th>
         </tr>
-      </table>
+     
+
+      <tbody>
+
+          {
+            books.map((book)=>{
+              return(
+                <tr key={book.id}>
+                 <td>{book.id}</td>
+                 <td>{book.bookname}</td>
+                 <td>{book.description}</td>
+                 <td>{book.status}</td>
+                 <td>Actions</td>
+                 </tr>
+
+              )
+            })
+
+          }
+
+       
+        </tbody>
+        </table>
     </>
   )
 }

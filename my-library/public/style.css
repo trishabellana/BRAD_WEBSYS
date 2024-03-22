@@ -6,6 +6,7 @@
 
 .student-table{
     width:100%;
+    margin-bottom: 30px;
 }
 .student-table th{
     width:20%;
@@ -40,6 +41,10 @@
 }
 .book-table th{
     width:20%;
+}
+.book-table td{
+    width:20%;
+    text-align:center;
 }
 .book-form {
     display: flex;
