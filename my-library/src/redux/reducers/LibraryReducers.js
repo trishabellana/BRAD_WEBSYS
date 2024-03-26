@@ -45,6 +45,13 @@ const singleStudentInitialized={
     state:'ACTIVE'
 }
 
+const singleBookInitialized={
+    id:'',
+    bookname:'',
+    description:'',
+    state:'AVAILABLE'
+}
+
 export const LibraryReducers = (state=initialState, {type,payload}) => {
  switch (type) {
     case ActionTypes.SET_STUDENTS:
@@ -68,6 +75,16 @@ export const BookReducers = (state=initialStates, {type,payload}) => {
    export const selectedStudentReducer = (state=singleStudentInitialized, {type,payload}) => {
     switch (type) {
        case ActionTypes.SELECTED_STUDENT:
+           return {...state, ...payload};
+   
+       default:
+           return state;
+     }
+   }
+
+   export const selectedBookReducer = (state=singleBookInitialized, {type,payload}) => {
+    switch (type) {
+       case ActionTypes.SELECTED_BOOK:
            return {...state, ...payload};
    
        default:

@@ -20,3 +20,10 @@ export const setSelectedStudent = (student) => {
         payload: student,
     };
 };
+
+export const setSelectedBook = (book) => {
+    return{
+        type: ActionTypes.SELECTED_BOOK,
+        payload: book,
+    };
+};

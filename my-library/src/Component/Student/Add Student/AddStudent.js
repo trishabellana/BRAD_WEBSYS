@@ -22,7 +22,9 @@ const addStudent=()=>{
   const oldStudent = [...students];
   oldStudent.push(newstudent);
   dispatch(setStudent(oldStudent));
-
+  
+  setFirstname(''); //to clear inputs inside textbox when updating
+  setLastname('');  //to clear inputs inside textbox when updating
 }
 
 const updateStudent=()=>{

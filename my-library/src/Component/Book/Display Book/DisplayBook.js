@@ -1,23 +1,51 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
+import { setSelectedBook, setBook } from '../../../redux/actions/LibraryActions';
 
 export default function DisplayBook() {
+
+  //const is functions
+
     const books = useSelector((state) => state.allBooks.books);
-    console.log(books);
+    const dispatch = useDispatch();
+
+    const getBookId = (id)=>{
+      console.log(id);
+      // const singlestudent = students.filter((student)=>student.id===id)
+      const singleBook = books.find((book)=>book.id===id);
+      singleBook.state="UPDATING";
+
+
+      dispatch(setSelectedBook(singleBook))
+      console.log(singleBook);
+    }
+
+    const getRemoveId = (id)=>{
+      const singleBook1 = books.find((book)=>book.id===id);
+      singleBook1.state="REMOVED";
+
+      const oldBook = [...books];
+      const bookIndex = oldBook.findIndex((book)=>book.id===id)
+      console.log(bookIndex);
+
+      oldBook.splice(bookIndex, 1, singleBook1);
+      dispatch(setBook(oldBook));
+      console.log(books);
+    }
 
   return (
     <>
     <table className="book-table">
+      <thead>
         <tr>
           <th>#</th>
-          <th>Book Name</th>
+          <th>  Book Name</th>
           <th>Description</th>
-          <th>Status</th>
-          <th>Action</th>
+          <th>Actions</th>
         </tr>
-     
+        </thead>
 
-      <tbody>
+        <tbody>
 
           {
             books.map((book)=>{
@@ -26,8 +54,12 @@ export default function DisplayBook() {
                  <td>{book.id}</td>
                  <td>{book.bookname}</td>
                  <td>{book.description}</td>
-                 <td>{book.status}</td>
-                 <td>Actions</td>
+                 <td>
+                  <button onClick={()=>getBookId(book.id)}>Edit</button>
+                  &nbsp;
+                  <button onClick={()=>getRemoveId(book.id)}>Remove</button>
+
+                 </td>
                  </tr>
 
               )
@@ -37,7 +69,7 @@ export default function DisplayBook() {
 
        
         </tbody>
-        </table>
+      </table>
     </>
   )
 }
