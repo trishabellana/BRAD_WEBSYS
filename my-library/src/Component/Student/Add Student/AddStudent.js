@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import {setStudent,setSelectedStudent} from '../../../redux/actions/LibraryActions';
+import http from '../../../http';
 
 export default function AddStudent() {
 const [ firstname, setFirstname] = useState ('');
@@ -13,11 +14,17 @@ console.log(onestudent);
 
 const addStudent=()=>{
   const newstudent={
-    id: Math.floor (Math.random()*10000),
     firstname :firstname,
     lastname :lastname,
-    state: 'ACTIVE'
+    status: 'ACTIVE'
   }
+
+  //Database connection
+  http.post('students', newstudent).then((result)=>{
+   console.log(result.data);
+  }).catch(error=>{
+    console.log(error.message);
+  });
 
   const oldStudent = [...students];
   oldStudent.push(newstudent);
@@ -27,13 +34,28 @@ const addStudent=()=>{
   setLastname('');  //to clear inputs inside textbox when updating
 }
 
+
+
 const updateStudent=()=>{
   const newstudent={
     id:onestudent.id,
     firstname :firstname,
     lastname :lastname,
-    state: 'ACTIVE'
+    status: 'ACTIVE'
   }
+
+  const newstudent2={
+    firstname :firstname,
+    lastname :lastname,
+    status: 'ACTIVE'
+  }
+
+  http.put(`students/${onestudent.id}`, newstudent2).then((result)=>{
+    console.log(result.data);
+   }).catch(error=>{
+     console.log(error.message);
+   }); 
+
 
   const oldStudent = [...students];
   const studentIndex = oldStudent.findIndex((student)=>student.id===onestudent.id)
@@ -44,7 +66,7 @@ const updateStudent=()=>{
 
   onestudent.firstname='';
   onestudent.lastname='';
-  onestudent.state='ACTIVE';
+  onestudent.status='ACTIVE';
   dispatch(setSelectedStudent(onestudent))
 
   setFirstname(''); //to clear inputs inside textbox when updating

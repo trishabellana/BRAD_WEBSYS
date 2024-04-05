@@ -1,6 +1,7 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { setSelectedStudent, setStudent } from '../../../redux/actions/LibraryActions';
+import http from '../../../http';
 
 export default function DisplayStudent() {
 
@@ -33,6 +34,19 @@ export default function DisplayStudent() {
       console.log(students);
     }
 
+    const getStudentData=()=>{
+      http.get('students').then((result)=>{
+        console.log(result.data);
+        dispatch(setStudent(result.data));
+      }).catch(error=>{
+        console.log(error.message);
+      });
+    }
+
+    useEffect(()=>{
+      getStudentData();
+    },[]);
+
   return (
     <>
     <table className="student-table">
@@ -48,7 +62,8 @@ export default function DisplayStudent() {
         <tbody>
 
           {
-            students.map((student)=>{
+            students.filter((student)=>student.status!='REMOVED')
+            .map((student)=>{
               return(
                 <tr key={student.id}>
                  <td>{student.id}</td>

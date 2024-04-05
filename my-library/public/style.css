@@ -71,6 +71,13 @@
     width:100px;
     height: 35px;
 }
+.update-book{
+    background-color: yellow;
+    color:black;
+    width:100px;
+    height: 35px;
+}
+
 .navigation ul{
     display: flex;
     flex-direction: row;

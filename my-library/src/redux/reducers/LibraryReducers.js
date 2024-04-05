@@ -3,38 +3,14 @@ import{ActionTypes} from "../constants/Action-types";
 
 const initialState ={
     students: [
-        {
-            id:1,
-            lastname: 'Abellana',
-            firstname:'Trisha',
-            state: 'ACTIVE'
-        },
-
-        {
-            id:2,
-            lastname: 'Del Rosario',
-            firstname:'Raymark',
-            state: 'ACTIVE'
-        }
-    ],
+        
+    ]
 
 }
 const initialStates ={
 
     books: [
-        {
-            id:1,
-            bookname: 'P1',
-            description:'Programming 1',
-            status: 'Available'
-        },
-
-        {
-            id:2,
-            bookname: 'P2',
-            description:'Programming 2',
-            status: 'Not Available'
-        }
+        
     ]
 }
 
@@ -42,14 +18,14 @@ const singleStudentInitialized={
     id:'',
     firstname:'',
     lastname:'',
-    state:'ACTIVE'
+    status:'ACTIVE'
 }
 
 const singleBookInitialized={
     id:'',
     bookname:'',
     description:'',
-    state:'AVAILABLE'
+    status:'AVAILABLE'
 }
 
 export const LibraryReducers = (state=initialState, {type,payload}) => {

@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import {setBook,setSelectedBook} from '../../../redux/actions/LibraryActions';
+import http from '../../../http';
 
 export default function AddBook() {
 const [ bookname, setBookname] = useState ('');
@@ -13,11 +14,18 @@ console.log(onebook);
 
 const addBook=()=>{
   const newbook={
-    id: Math.floor (Math.random()*10000),
     bookname :bookname,
     description :description,
-    state: 'AVAILABLE'
+    status: 'AVAILABLE'
   }
+
+   //Database connection
+   http.post('books', newbook).then((result)=>{
+    console.log(result.data);
+   }).catch(error=>{
+     console.log(error.message);
+   });
+ 
 
   const oldBook = [...books];
   oldBook.push(newbook);
@@ -32,8 +40,22 @@ const updateBook=()=>{
     id:onebook.id,
     bookname :bookname,
     description :description,
-    state: 'AVAILABLE'
+    status: 'AVAILABLE'
   }
+
+  const newbook2={
+    bookname :bookname,
+    description :description,
+    status: 'AVAILABLE'
+  }
+
+
+  http.put(`books/${onebook.id}`, newbook2).then((result)=>{
+    console.log(result.data);
+   }).catch(error=>{
+     console.log(error.message);
+   }); 
+
 
   const oldBook = [...books];
   const bookIndex = oldBook.findIndex((book)=>book.id===onebook.id)
@@ -42,9 +64,9 @@ const updateBook=()=>{
   oldBook.splice(bookIndex, 1, newbook);
   dispatch(setBook(oldBook));
 
-  onebook.booknamename='';
+  onebook.bookname='';
   onebook.description='';
-  onebook.state='AVAILABLE';
+  onebook.status='AVAILABLE';
   dispatch(setSelectedBook(onebook))
 
   setBookname(''); //to clear inputs inside textbox when updating

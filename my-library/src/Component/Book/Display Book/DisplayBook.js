@@ -1,6 +1,7 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { setSelectedBook, setBook } from '../../../redux/actions/LibraryActions';
+import http from '../../../http';
 
 export default function DisplayBook() {
 
@@ -33,13 +34,27 @@ export default function DisplayBook() {
       console.log(books);
     }
 
+    const getBookData=()=>{
+      http.get('books').then((result)=>{
+        console.log(result.data);
+        dispatch(setBook(result.data));
+      }).catch(error=>{
+        console.log(error.message);
+      });
+    }
+
+    useEffect(()=>{
+      getBookData();
+    },[]);
+
+
   return (
     <>
     <table className="book-table">
       <thead>
         <tr>
           <th>#</th>
-          <th>  Book Name</th>
+          <th>Book Name</th>
           <th>Description</th>
           <th>Actions</th>
         </tr>
@@ -48,7 +63,8 @@ export default function DisplayBook() {
         <tbody>
 
           {
-            books.map((book)=>{
+            books.filter((book)=>book.status!='REMOVED')
+            .map((book)=>{
               return(
                 <tr key={book.id}>
                  <td>{book.id}</td>
