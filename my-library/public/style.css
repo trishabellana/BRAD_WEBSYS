@@ -6,14 +6,17 @@
 
 .student-table{
     width:100%;
-    margin-bottom: 30px;
 }
 .student-table th{
     width:20%;
 }
 .student-table td{
     width:20%;
-    text-align:center;
+    text-align: center;
+}
+.book-table td{
+    width:20%;
+    text-align: center;
 }
 .student-form {
     display: flex;
@@ -33,25 +36,38 @@
     width:100px;
     height: 35px;
 }
-.update-student{
-    background-color: yellow;
+.edit-button{
+    
     color:black;
     width:100px;
     height: 35px;
 }
 
+.delete-button{
+    
+    color:black;
+    width:100px;
+    height: 35px;
+    margin-left: 10px;
+}
+.update-student{
+    background-color: yellow;
+    color:#000;
+    width:100px;
+    height: 35px;
+}
 
-
-
+.update-book{
+    background-color: yellow;
+    color:#000;
+    width:100px;
+    height: 35px;
+}
 .book-table{
     width:100%;
 }
 .book-table th{
     width:20%;
-}
-.book-table td{
-    width:20%;
-    text-align:center;
 }
 .book-form {
     display: flex;
@@ -71,9 +87,45 @@
     width:100px;
     height: 35px;
 }
-.update-book{
-    background-color: yellow;
-    color:black;
+
+.transaction-table{
+    width:100%;
+    border: solid black 1px;
+    margin-top: 20px;
+}
+.transaction-table th{
+    width:20%;
+}
+.transaction-table td{
+    width:20%;
+    text-align: center;
+}
+.transaction-table td{
+    width:20%;
+    text-align: center;
+}
+.transaction-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap:10px;
+}
+.transaction-form input{
+    width:200px;
+    min-height: 10px;
+    aspect-ratio: 5/1;
+}
+.borrow-book{
+    background-color: rgb(77, 77, 246);
+    color:#ffffff;
+    width:100px;
+    height: 35px;
+}
+
+.return-button{
+    background-color: rgb(77, 77, 246);
+    color:#ffffff;
     width:100px;
     height: 35px;
 }

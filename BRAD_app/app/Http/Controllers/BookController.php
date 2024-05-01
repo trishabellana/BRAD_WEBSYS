@@ -58,11 +58,13 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        $books = Book::find($id);
+        $borrowed = Borrowed::with('student', 'book')->find($id);
 
-        return response()->json([
-            $books,
-            ],200);
+    if ($borrowed) {
+        return response()->json($borrowed, 200);
+    } else {
+        return response()->json(['error' => 'Transaction not found.'], 404);
+    }
 
     }
 

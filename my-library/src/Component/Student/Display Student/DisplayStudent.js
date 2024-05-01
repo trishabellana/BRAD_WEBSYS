@@ -1,52 +1,53 @@
-import React,{useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { setSelectedStudent, setStudent } from '../../../redux/actions/LibraryActions';
 import http from '../../../http';
 
 export default function DisplayStudent() {
-
-  //const is functions
-
     const students = useSelector((state) => state.allStudents.students);
+    // console.log(students);
     const dispatch = useDispatch();
-
-    const getStudentId = (id)=>{
+    
+    const getStudentId =(id) => {
       console.log(id);
-      // const singlestudent = students.filter((student)=>student.id===id)
-      const singleStudent = students.find((student)=>student.id===id);
-      singleStudent.state="UPDATING";
-
-
-      dispatch(setSelectedStudent(singleStudent))
-      console.log(singleStudent);
+      // const singlestudent= students.filter((student)=>student.id===id)
+      const singlestudent= students.find((student)=>student.id===id);
+      singlestudent.state="UPDATING";
+      dispatch(setSelectedStudent(singlestudent));
+      console.log(singlestudent);
     }
 
-    const getRemoveId = (id)=>{
-      const singleStudent1 = students.find((student)=>student.id===id);
-      singleStudent1.state="REMOVED";
+    const getRemoveStudentId =(id)=>{
+      const singlestudent1= students.find((student)=>student.id===id);
+      singlestudent1.state="REMOVED";
+
+      http.delete(`students/${singlestudent1.id}/delete`).then((result)=>{
+        console.log(result.data);
+        dispatch(setStudent(result.data[0]));
+      }).catch(error=>{
+        console.log(error.message);
+      });
 
       const oldStudent = [...students];
-      const studentIndex = oldStudent.findIndex((student)=>student.id===id)
-      console.log(studentIndex);
-
-      oldStudent.splice(studentIndex, 1, singleStudent1);
+      const studentIndex = oldStudent.findIndex((student =>student.id===id));
+      console.log(studentIndex);  
+      oldStudent.splice(studentIndex, 1,singlestudent1);
       dispatch(setStudent(oldStudent));
       console.log(students);
+      // dispatch(setSelectedStudent(singlestudent));
     }
 
     const getStudentData=()=>{
-      http.get('students').then((result)=>{
+      http.get(`students`).then((result)=>{
         console.log(result.data);
-        dispatch(setStudent(result.data));
+        dispatch(setStudent(result.data[0]));
       }).catch(error=>{
         console.log(error.message);
       });
     }
-
     useEffect(()=>{
       getStudentData();
     },[]);
-
   return (
     <>
     <table className="student-table">
@@ -57,33 +58,29 @@ export default function DisplayStudent() {
           <th>Last Name</th>
           <th>Actions</th>
         </tr>
-        </thead>
+      </thead>
+      <tbody>
+        {
+          students.filter((student)=>student.status!=='REMOVED')
+          .map((student)=>{
+            return(
+              <tr key = {student.id}>
+              <td>{student.id}</td>
+              <td>{student.firstname}</td>
+              <td>{student.lastname}</td>
 
-        <tbody>
+              <td>
+                <button onClick={()=>getStudentId(student.id)} className='edit-button'>Edit</button>
+                <button onClick={()=>getRemoveStudentId(student.id)} className='delete-button'>Delete</button>
+              </td>
+            </tr>
+            )
+          })
 
-          {
-            students.filter((student)=>student.status!='REMOVED')
-            .map((student)=>{
-              return(
-                <tr key={student.id}>
-                 <td>{student.id}</td>
-                 <td>{student.firstname}</td>
-                 <td>{student.lastname}</td>
-                 <td>
-                  <button onClick={()=>getStudentId(student.id)}>Edit</button>
-                  &nbsp;
-                  <button onClick={()=>getRemoveId(student.id)}>Remove</button>
+        }
 
-                 </td>
-                 </tr>
+      </tbody>
 
-              )
-            })
-
-          }
-
-       
-        </tbody>
       </table>
     </>
   )

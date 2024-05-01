@@ -1,54 +1,75 @@
 import{ActionTypes} from "../constants/Action-types";
 
-
-const initialState ={
+const studentState ={
     students: [
-        
+
     ]
-
 }
-const initialStates ={
 
+const bookState ={
     books: [
-        
+
     ]
 }
 
-const singleStudentInitialized={
-    id:'',
+const transactionState ={
+    transactions: [
+
+    ]
+}
+
+const singleStudentInitialized ={
+    id: '',
+    lastname: '',
     firstname:'',
-    lastname:'',
-    status:'ACTIVE'
+    state: 'ACTIVE'
 }
 
-const singleBookInitialized={
-    id:'',
-    bookname:'',
+const singleBookInitialized ={
+    id: '',
+    book_name: '',
     description:'',
-    status:'AVAILABLE'
+    state:'AVAILABLE'
 }
 
-export const LibraryReducers = (state=initialState, {type,payload}) => {
+const singleTransactionInitialized ={
+    id: '',
+    book_id: '',
+    student_id:'',
+    date_borrowed:'',
+    state:'BORROWED'
+}
+
+export const LibraryReducers = (state=studentState, {type,payload}) => {
  switch (type) {
     case ActionTypes.SET_STUDENTS:
-        return {...state,students:payload};
+        return {...state, students:payload};
 
     default:
         return state;
   }
 }
-
-export const BookReducers = (state=initialStates, {type,payload}) => {
+export const BookReducers = (state=bookState, {type,payload}) => {
     switch (type) {
        case ActionTypes.SET_BOOKS:
-           return {...state,books:payload};
+           return {...state,books: payload};
+   
+       default:
+           return state;
+     }
+}
+
+export const TransactionReducers = (state=transactionState, {type,payload}) => {
+    switch (type) {
+       case ActionTypes.SET_TRANSACTIONS:
+           return {...state, transactions:payload};
    
        default:
            return state;
      }
    }
-   
-   export const selectedStudentReducer = (state=singleStudentInitialized, {type,payload}) => {
+
+export const selectedStudentReducer = (state=singleStudentInitialized, {type,payload}) => {
     switch (type) {
        case ActionTypes.SELECTED_STUDENT:
            return {...state, ...payload};
@@ -56,9 +77,9 @@ export const BookReducers = (state=initialStates, {type,payload}) => {
        default:
            return state;
      }
-   }
+}
 
-   export const selectedBookReducer = (state=singleBookInitialized, {type,payload}) => {
+export const selectedBookReducer = (state=singleBookInitialized, {type,payload}) => {
     switch (type) {
        case ActionTypes.SELECTED_BOOK:
            return {...state, ...payload};
@@ -66,4 +87,14 @@ export const BookReducers = (state=initialStates, {type,payload}) => {
        default:
            return state;
      }
-   }
+}
+
+export const selectedTransactionReducer = (state=singleTransactionInitialized, {type,payload}) => {
+    switch (type) {
+       case ActionTypes.SELECTED_TRANSACTION:
+           return {...state, ...payload};
+   
+       default:
+           return state;
+     }
+}

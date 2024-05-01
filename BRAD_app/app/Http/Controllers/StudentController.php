@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 
@@ -12,44 +13,53 @@ class StudentController extends Controller
      */
     public function index()
     {
-        // $students = Student::all();
+        $students = Student::all();
     
 
-        // return response()->json([
+        return response()->json([
 
-        //     $students,
+            $students,
 
-        // ],200);
-
-        $students = Student::all();
-        echo $students;
+        ],200);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $firstname = $request->firstname;
-        $lastname = $request->lastname;
-        $status = $request->status;
+    {   
+        // $firstname = $request->firstname;
+        // $lastname = $request->lastname;
 
-       $student = new Student();
-       $student->firstname = $request->firstname;
-       $student->lastname = $request->lastname;
-       $student->status = $request->status;
-       $student->save();
+        // $output = array();
 
-        echo "Successfully add new student";
+        $students = Student::where('firstname',request -> $firstname)
+        ->where('lastname',request -> $lastname) ->get();
+        
+         if (count(students)> 0){
+            echo "2";
+         } else{
+        $student = new Student();
+        $student ->firstname = $request->firstname;
+        $student ->lastname = $request->lastname;
+        $student ->status = $request->status;
+        $student ->save();
+        echo "1";
+        }
+        // $student = new Student();
 
+        // $student -> firstname= $request->firstname;
+        // $student -> lastname= $request->lastname;
+        // $student -> status= $request->status;
+        // $student -> save();
+
+        // echo "Succesfully added New Student";      
+        
     }
 
     /**
@@ -62,7 +72,6 @@ class StudentController extends Controller
         return response()->json([
             $student,
             ],200);
-
     }
 
     /**
@@ -82,10 +91,9 @@ class StudentController extends Controller
     else
         {
         return response()->json([
-            'message' => "Student does not exist"
+            'message' => "Student Does not Exist"
             ],404);
         }
-    
     }
 
     /**
@@ -93,15 +101,14 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $student = Student:: find($id);
+        $student ->firstname = $request->firstname;
+        $student ->lastname = $request->lastname;
+        $student ->status = $request->status;
+        $student ->save();
+
+        echo "Succesfully updated Student";            
         
-        $student = Student::find($id);
-        $student->firstname = $request->firstname;
-        $student->lastname = $request->lastname;
-        $student->status = $request->status;
-        $student->save();
- 
-         echo "Successfully update new student";
- 
     }
 
     /**

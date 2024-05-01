@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('/students','App\Http\Controllers\StudentController');
 Route::resource('/books','App\Http\Controllers\BookController');
+Route::resource('/borroweds','App\Http\Controllers\BorrowedController');

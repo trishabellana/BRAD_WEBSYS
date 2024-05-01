@@ -2,10 +2,13 @@ import React, {useState,useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import {setBook,setSelectedBook} from '../../../redux/actions/LibraryActions';
 import http from '../../../http';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddBook() {
 const [ bookname, setBookname] = useState ('');
 const [ description, setDescription] = useState ('');
+const [loading,setLoading] = useState(false);
 const dispatch = useDispatch();
 const books = useSelector((state)  => state.allBooks.books); 
 const onebook = useSelector((state)  => state.singleBook);
@@ -22,6 +25,45 @@ const addBook=()=>{
    //Database connection
    http.post('books', newbook).then((result)=>{
     console.log(result.data);
+
+
+    if(result.data==="1"){
+      console.log("Book successfully created");
+      setLoading(false);
+      notificationMessage('SUCCESS','Book successfully created');
+    }else{
+      console.log("Book information already exist");
+      notificationMessage('ERROR','Book information already exist');
+      setLoading(false);
+    }
+
+
+    const notificationMessage=(result,message)=>{
+      if(result =="SUCCESS"){
+      toast.sucess(message, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
+    }else if(result == "ERROR"){
+      toast.danger(message, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
+    }
+  }
+
    }).catch(error=>{
      console.log(error.message);
    });
